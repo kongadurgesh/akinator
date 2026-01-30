@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import PersonalityGrid from './components/PersonalityGrid';
 import QuestionPanel from './components/QuestionPanel';
 import Leaderboard from './components/Leaderboard';
+import Rules from './components/Rules';
 import { Personality, Question, LeaderboardEntry, Guess } from './types';
 import { fetchFamousPersonalities } from './services/personalityApi';
 
 const App = () => {
+  const [activeView, setActiveView] = useState<'game' | 'rules'>('game');
   const [personalities, setPersonalities] = useState<Personality[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -17,12 +19,15 @@ const App = () => {
   const [guesses, setGuesses] = useState<Guess[]>([]);
   const [currentGuessParticipant, setCurrentGuessParticipant] = useState('');
   const [currentGuess, setCurrentGuess] = useState('');
-  const [currentGuessQuestion, setCurrentGuessQuestion] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
   const [finishModalTitle, setFinishModalTitle] = useState('');
   const [finishModalSubtitle, setFinishModalSubtitle] = useState('');
   const [hasCalculatedScoresForRound, setHasCalculatedScoresForRound] = useState(false);
+  const [markerMode, setMarkerMode] = useState<'green' | 'red' | null>(null);
+  const [greenMarkedPersonalities, setGreenMarkedPersonalities] = useState<Set<string>>(new Set());
+  const [redMarkedPersonalities, setRedMarkedPersonalities] = useState<Set<string>>(new Set());
+  const [previousRoundNames, setPreviousRoundNames] = useState<Set<string>>(new Set());
 
   const createEmptyQuestions = (): Question[] =>
     Array.from({ length: 10 }, (_, index) => ({
@@ -35,7 +40,7 @@ const App = () => {
     const loadPersonalities = async () => {
       setLoading(true);
       try {
-        const fetchedPersonalities = await fetchFamousPersonalities(100);
+        const fetchedPersonalities = await fetchFamousPersonalities(100, previousRoundNames);
         setPersonalities(fetchedPersonalities);
       } catch (error) {
         console.error('Error loading personalities:', error);
@@ -67,7 +72,6 @@ const App = () => {
     setGuesses([]);
     setCurrentGuessParticipant('');
     setCurrentGuess('');
-    setCurrentGuessQuestion(1);
 
     setSelectedName('');
     setSelectedByName('');
@@ -107,29 +111,46 @@ const App = () => {
       return;
     }
 
-    const answeredQuestions = questions.filter((q) => q.answer !== null);
-    const score = answeredQuestions.length;
-
     const newEntry: LeaderboardEntry = {
       id: `entry-${Date.now()}`,
       name: participantName.trim(),
-      score,
+      score: 0,
       timestamp: Date.now(),
     };
 
     setLeaderboard((prev) => [...prev, newEntry]);
     setCurrentGuessParticipant((prev) => (prev.trim() ? prev : newEntry.name));
     setParticipantName('');
+  };
 
-    setQuestions((prev) =>
-      prev.map((q) => ({ ...q, text: '', answer: null }))
-    );
-    setGuesses([]);
-    setSelectedName('');
-    setSelectedByName('');
-    setSelectedByNameInput('');
-    setIsNameRevealed(false);
-    setHasCalculatedScoresForRound(false);
+  const handleRemoveParticipant = (participantId: string) => {
+    // Find the participant to remove
+    const participantToRemove = leaderboard.find((entry) => entry.id === participantId);
+    if (!participantToRemove) return;
+
+    // Remove from leaderboard
+    setLeaderboard((prev) => prev.filter((entry) => entry.id !== participantId));
+
+    // Remove their guesses
+    setGuesses((prev) => prev.filter((guess) => guess.participantName !== participantToRemove.name));
+
+    // If this participant was selected for guessing, clear or select another
+    if (currentGuessParticipant === participantToRemove.name) {
+      const remainingParticipants = leaderboard
+        .filter((entry) => entry.id !== participantId)
+        .map((entry) => entry.name);
+      if (remainingParticipants.length > 0) {
+        setCurrentGuessParticipant(remainingParticipants[0]);
+      } else {
+        setCurrentGuessParticipant('');
+      }
+    }
+
+    // If this participant was the chooser, clear chooser info
+    if (selectedByName === participantToRemove.name) {
+      setSelectedByName('');
+      setSelectedByNameInput('');
+    }
   };
 
   const handleShuffle = async () => {
@@ -137,19 +158,68 @@ const App = () => {
     // Reset the current round state on shuffle
     setGuesses([]);
     setCurrentGuess('');
-    setCurrentGuessQuestion(1);
     setSelectedName('');
     setSelectedByName('');
     setSelectedByNameInput('');
     setIsNameRevealed(false);
     setHasCalculatedScoresForRound(false);
+    setQuestions(createEmptyQuestions());
+    // Clear marked personalities
+    setGreenMarkedPersonalities(new Set());
+    setRedMarkedPersonalities(new Set());
+    setMarkerMode(null);
+    
+    // Track current round's personalities to exclude in next round
+    const currentRoundNames = new Set(personalities.map(p => p.name.toLowerCase()));
+    
     try {
-      const fetchedPersonalities = await fetchFamousPersonalities(100);
+      // Fetch new personalities excluding only the previous round's names
+      const fetchedPersonalities = await fetchFamousPersonalities(100, previousRoundNames);
       setPersonalities(fetchedPersonalities);
+      // Update previous round names to current round for next shuffle
+      setPreviousRoundNames(currentRoundNames);
     } catch (error) {
       console.error('Error shuffling personalities:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePersonalityClick = (personalityId: string) => {
+    if (!markerMode) return;
+
+    if (markerMode === 'green') {
+      setGreenMarkedPersonalities((prev) => {
+        const newSet = new Set(prev);
+        if (newSet.has(personalityId)) {
+          newSet.delete(personalityId);
+        } else {
+          newSet.add(personalityId);
+          // Remove from red if it was there
+          setRedMarkedPersonalities((redPrev) => {
+            const redNewSet = new Set(redPrev);
+            redNewSet.delete(personalityId);
+            return redNewSet;
+          });
+        }
+        return newSet;
+      });
+    } else if (markerMode === 'red') {
+      setRedMarkedPersonalities((prev) => {
+        const newSet = new Set(prev);
+        if (newSet.has(personalityId)) {
+          newSet.delete(personalityId);
+        } else {
+          newSet.add(personalityId);
+          // Remove from green if it was there
+          setGreenMarkedPersonalities((greenPrev) => {
+            const greenNewSet = new Set(greenPrev);
+            greenNewSet.delete(personalityId);
+            return greenNewSet;
+          });
+        }
+        return newSet;
+      });
     }
   };
 
@@ -186,6 +256,14 @@ const App = () => {
       (g) => g.guess.trim().toLowerCase() !== normalizedSelectedName
     );
 
+    // Track correct guesses and their question numbers
+    const correctGuesses = guesses.filter(
+      (g) => g.guess.trim().toLowerCase() === normalizedSelectedName
+    );
+    const allCorrectGuessesAfterQ5 = correctGuesses.length > 0 && 
+      correctGuesses.every((g) => g.questionNumber > 5);
+    const noCorrectGuesses = correctGuesses.length === 0;
+
     guesses.forEach((guessEntry) => {
       const isCorrect = guessEntry.guess.trim().toLowerCase() === normalizedSelectedName;
       if (!isCorrect) return;
@@ -211,17 +289,19 @@ const App = () => {
       }
     });
 
-    // Chooser gets ONLY +1000 total if there is at least one incorrect guess in the round.
-    // No "deduction" points are added to the chooser.
-    if (hasAnyIncorrectGuess && chooserName) {
+    // Chooser scoring logic:
+    // - If all guessers took more than 5 questions (or no one guessed correctly), award 500 points
+    // - Otherwise, if there is at least one incorrect guess, award 1000 points
+    if (chooserName && hasAnyIncorrectGuess) {
+      const chooserPoints = (allCorrectGuessesAfterQ5 || noCorrectGuesses) ? 500 : 1000;
       const chooserIndex = updatedLeaderboard.findIndex((e) => e.name === chooserName);
       if (chooserIndex !== -1) {
-        updatedLeaderboard[chooserIndex].score += 1000;
+        updatedLeaderboard[chooserIndex].score += chooserPoints;
       } else {
         updatedLeaderboard.push({
           id: `entry-${Date.now()}-${chooserName}`,
           name: chooserName,
-          score: 1000,
+          score: chooserPoints,
           timestamp: Date.now(),
         });
       }
@@ -236,17 +316,29 @@ const App = () => {
       return;
     }
 
+    // Check if this team already has a guess
+    const teamAlreadyGuessed = guesses.some(
+      (g) => g.participantName.toLowerCase() === currentGuessParticipant.trim().toLowerCase()
+    );
+    
+    if (teamAlreadyGuessed) {
+      return; // Prevent multiple guesses from the same team
+    }
+
+    // Calculate current question number based on answered questions
+    const answeredQuestionsCount = questions.filter((q) => q.answer !== null).length;
+    const currentQuestionNumber = Math.min(answeredQuestionsCount + 1, 10);
+
     const newGuess: Guess = {
       id: `guess-${Date.now()}`,
       participantName: currentGuessParticipant.trim(),
       guess: currentGuess.trim(),
-      questionNumber: currentGuessQuestion,
+      questionNumber: currentQuestionNumber,
       timestamp: Date.now(),
     };
 
     setGuesses((prev) => [...prev, newGuess]);
     setCurrentGuess('');
-    setCurrentGuessQuestion(1);
   };
 
   const handleFinishGame = () => {
@@ -286,14 +378,27 @@ const App = () => {
     );
   }
 
+  if (activeView === 'rules') {
+    return <Rules onBack={() => setActiveView('game')} />;
+  }
+
   return (
     <>
       <div className="w-screen h-screen flex bg-gray-100 overflow-hidden">
         <div className="w-[60%] h-full border-r border-gray-300">
-          <PersonalityGrid personalities={personalities} onShuffle={handleShuffle} />
+          <PersonalityGrid
+            personalities={personalities}
+            onShuffle={handleShuffle}
+            onShowRules={() => setActiveView('rules')}
+            markerMode={markerMode}
+            onMarkerModeChange={setMarkerMode}
+            greenMarkedPersonalities={greenMarkedPersonalities}
+            redMarkedPersonalities={redMarkedPersonalities}
+            onPersonalityClick={handlePersonalityClick}
+          />
         </div>
         
-        <div className="w-[25%] h-full border-r border-gray-300">
+        <div className="w-[20%] h-full border-r border-gray-300">
           <QuestionPanel
             questions={questions}
             onQuestionChange={handleQuestionChange}
@@ -307,23 +412,25 @@ const App = () => {
           />
         </div>
         
-        <div className="w-[15%] h-full">
+        <div className="w-[20%] h-full">
           <Leaderboard
             leaderboard={leaderboard}
             participantName={participantName}
             onParticipantNameChange={handleParticipantNameChange}
             onAddParticipant={handleAddParticipant}
+            onRemoveParticipant={handleRemoveParticipant}
             onFinishGame={handleFinishGame}
             guesses={guesses}
             currentGuessParticipant={currentGuessParticipant}
             currentGuess={currentGuess}
-            currentGuessQuestion={currentGuessQuestion}
+            questions={questions}
             onCurrentGuessParticipantChange={setCurrentGuessParticipant}
             onCurrentGuessChange={setCurrentGuess}
-            onCurrentGuessQuestionChange={setCurrentGuessQuestion}
             onAddGuess={handleAddGuess}
             selectedName={selectedName}
             isNameRevealed={isNameRevealed}
+            selectedByName={selectedByName}
+            selectedByNameInput={selectedByNameInput}
           />
         </div>
       </div>

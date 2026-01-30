@@ -14,22 +14,17 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Vicky Kaushal', 'Kartik Aaryan', 'Sidharth Malhotra', 'Arjun Kapoor', 'Aditya Roy Kapur',
     'Ishaan Khatter', 'Shahid Kapoor', 'Saif Ali Khan', 'Ajay Devgn', 'Anil Kapoor',
     'Sunny Deol', 'Bobby Deol', 'Abhishek Bachchan', 'John Abraham', 'Emraan Hashmi',
-    'Riteish Deshmukh', 'Arshad Warsi', 'Akshaye Khanna', 'Vivek Oberoi', 'Fardeen Khan',
-    'Zayed Khan', 'Harman Baweja', 'Neil Nitin Mukesh', 'Imran Khan', 'Ranvir Shorey',
+    'Riteish Deshmukh', 'Arshad Warsi', 'Akshaye Khanna', 'Imran Khan', 'Ranvir Shorey',
     'Kay Kay Menon', 'Manoj Bajpayee', 'Sanjay Dutt', 'Sunil Shetty', 'Randeep Hooda',
-    'Vineet Kumar Singh', 'Jaideep Ahlawat', 'Vijay Varma', 'Manoj Pahwa', 'Adil Hussain',
-    'Gulshan Grover', 'Danny Denzongpa', 'Anupam Kher', 'Boman Irani', 'Paresh Rawal',
+    'Vijay Varma',
+   'Anupam Kher', 'Boman Irani', 'Paresh Rawal',
     'Om Puri', 'Amrish Puri', 'Shammi Kapoor', 'Shashi Kapoor', 'Jeetendra',
-    'Mithun Chakraborty', 'Govinda', 'Sanjay Kapoor', 'Karan Kapoor', 'Kunal Kapoor',
-    'Rahul Bose', 'Rahul Khanna', 'Rahul Dev', 'Rahul Roy', 'Rahul Bhat',
-    'Adil Hussain', 'Jimmy Sheirgill', 'Rajeev Khandelwal', 'Sushant Singh Rajput', 'Ahan Shetty',
-    'Amit Sadh', 'Vikrant Massey', 'Ali Fazal', 'Adarsh Gourav', 'Jitendra Kumar',
-    'Gulshan Devaiah', 'Vikram', 'Suriya', 'Vijay', 'Allu Arjun',
+    'Mithun Chakraborty', 'Govinda', 'Sanjay Kapoor',  'Sushant Singh Rajput', 'Vikrant Massey', 'Ali Fazal',  'Vikram', 'Suriya', 'Vijay', 'Allu Arjun',
     'Prabhas', 'Mahesh Babu', 'Jr NTR', 'Ram Charan', 'Dhanush',
     'Karthi', 'Sivakarthikeyan', 'Jayam Ravi', 'Ravi Teja', 'Nani',
     'Ravi Teja', 'Nani', 'Nagarjuna', 'Venkatesh', 'Chiranjeevi',
     'Kamal Haasan', 'Rajinikanth', 'Mammootty', 'Mohanlal', 'Dulquer Salmaan',
-    'Fahadh Faasil', 'Tovino Thomas', 'Prithviraj Sukumaran', 'Nivin Pauly', 'Asif Ali',
+    'Fahadh Faasil', 'Tovino Thomas', 'Prithviraj Sukumaran', 'Nivin Pauly'
   ],
 
   // Bollywood Actors - Female (100)
@@ -40,21 +35,17 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Sara Ali Khan', 'Janhvi Kapoor', 'Disha Patani', 'Tara Sutaria', 'Ananya Panday',
     'Nargis Fakhri', 'Amy Jackson', 'Jacqueline Fernandez', 'Nora Fatehi', 'Malaika Arora',
     'Karisma Kapoor', 'Raveena Tandon', 'Urmila Matondkar', 'Sonali Bendre', 'Manisha Koirala',
-    'Tabu', 'Vidya Balan', 'Konkona Sen Sharma', 'Rani Mukerji', 'Preity Zinta',
+    'Tabu', 'Vidya Balan', 'Rani Mukerji', 'Preity Zinta',
     'Lara Dutta', 'Bipasha Basu', 'Esha Deol', 'Tara Sharma', 'Amrita Rao',
     'Genelia D\'Souza', 'Asin', 'Tamannaah', 'Ileana D\'Cruz', 'Shruti Haasan',
     'Nayanthara', 'Samantha Ruth Prabhu', 'Rashmika Mandanna', 'Pooja Hegde', 'Anushka Shetty',
     'Trisha', 'Tamannaah Bhatia', 'Kajal Aggarwal', 'Shriya Saran', 'Hansika Motwani',
     'Rakul Preet Singh', 'Yami Gautam', 'Bhumi Pednekar', 'Radhika Apte', 'Richa Chadda',
     'Tripti Dimri', 'Sanya Malhotra', 'Fatima Sana Shaikh', 'Zaira Wasim', 'Mrunal Thakur',
-    'Kriti Sanon', 'Vaani Kapoor', 'Aditi Rao Hydari', 'Diana Penty', 'Amyra Dastur',
-    'Isha Talwar', 'Mouni Roy', 'Nushrat Bharucha', 'Shweta Tripathi', 'Sobhita Dhulipala',
-    'Radhika Madan', 'Banita Sandhu', 'Sayani Gupta', 'Rasika Dugal', 'Tillotama Shome',
-    'Geetanjali Thapa', 'Swara Bhasker', 'Kalki Koechlin', 'Gul Panag', 'Nimrat Kaur',
-    'Mallika Sherawat', 'Celina Jaitly', 'Neha Dhupia', 'Minissha Lamba', 'Gul Panag',
-    'Neha Sharma', 'Urvashi Rautela', 'Pooja Hegde', 'Tamannaah', 'Ileana D\'Cruz',
-    'Shruti Haasan', 'Nayanthara', 'Samantha Ruth Prabhu', 'Rashmika Mandanna', 'Anushka Shetty',
-    'Trisha', 'Kajal Aggarwal', 'Shriya Saran', 'Hansika Motwani', 'Rakul Preet Singh',
+    'Kriti Sanon', 'Vaani Kapoor', 'Aditi Rao Hydari', 'Diana Penty',  'Mouni Roy', 'Nushrat Bharucha',  'Sobhita Dhulipala',
+     'Sayani Gupta',  'Swara Bhasker', 'Kalki Koechlin', 
+    'Mallika Sherawat',  'Neha Dhupia', 
+    'Neha Sharma'
   ],
 
   // Cricketers (100)
@@ -67,18 +58,16 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Washington Sundar', 'Axar Patel', 'Yuzvendra Chahal', 'Kuldeep Yadav', 'Ravi Bishnoi',
     'Suryakumar Yadav', 'Ishan Kishan', 'Sanju Samson', 'Shreyas Iyer', 'Mayank Agarwal',
     'Cheteshwar Pujara', 'Ajinkya Rahane', 'Wriddhiman Saha', 'Dinesh Karthik', 'Gautam Gambhir',
-    'VVS Laxman', 'Mohammad Azharuddin', 'Navjot Singh Sidhu', 'Ajay Jadeja', 'Robin Singh',
-    'Javagal Srinath', 'Venkatesh Prasad', 'Zaheer Khan', 'Irfan Pathan', 'Yusuf Pathan',
-    'Suresh Raina', 'Mohammad Kaif', 'Dinesh Mongia', 'Hemang Badani', 'Reetinder Sodhi',
+    'VVS Laxman', 'Mohammad Azharuddin', 'Navjot Singh Sidhu', 'Ajay Jadeja', 'Zaheer Khan', 'Irfan Pathan', 'Yusuf Pathan',
+    'Suresh Raina', 'Mohammad Kaif',
     'Ajit Agarkar', 'Ashish Nehra', 'Munaf Patel', 'S Sreesanth', 'RP Singh',
     'Praveen Kumar', 'Amit Mishra', 'Piyush Chawla', 'Rahul Chahar', 'Varun Chakravarthy',
-    'Shahbaz Nadeem', 'Jayant Yadav', 'Karn Sharma', 'Deepak Chahar', 'Navdeep Saini',
-    'T Natarajan', 'Khaleel Ahmed', 'Avesh Khan', 'Prasidh Krishna', 'Arshdeep Singh',
-    'Umran Malik', 'Mukesh Kumar', 'Tilak Varma', 'Ruturaj Gaikwad', 'Devdutt Padikkal',
+     'Deepak Chahar', 'Navdeep Saini',
+     'Avesh Khan', 'Prasidh Krishna', 'Arshdeep Singh',
+    'Umran Malik', 'Tilak Varma', 'Ruturaj Gaikwad', 'Devdutt Padikkal',
     'Prithvi Shaw', 'Shubman Gill', 'Rinku Singh', 'Jitesh Sharma', 'Shivam Dube',
     'Venkatesh Iyer', 'Rahul Tripathi', 'Nitish Rana', 'Riyan Parag', 'Abhishek Sharma',
-    'Yashasvi Jaiswal', 'Dhruv Jurel', 'Sarfaraz Khan', 'Akash Deep', 'Harshit Rana',
-    'Arshin Kulkarni', 'Mahipal Lomror', 'Abid Mushtaq', 'Vidwath Kaverappa', 'Mayank Yadav',
+    'Yashasvi Jaiswal', 'Dhruv Jurel', 'Sarfaraz Khan', 'Akash Deep', 'Harshit Rana'
   ],
 
   // Politicians (100)
@@ -88,19 +77,13 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Lal Bahadur Shastri', 'P.V. Narasimha Rao', 'A.P.J. Abdul Kalam', 'Pranab Mukherjee', 'Ram Nath Kovind',
     'Droupadi Murmu', 'Rahul Gandhi', 'Sonia Gandhi', 'Priyanka Gandhi', 'Amit Shah',
     'Arvind Kejriwal', 'Mamata Banerjee', 'Naveen Patnaik', 'Yogi Adityanath', 'Shivraj Singh Chouhan',
-    'Nitin Gadkari', 'Rajnath Singh', 'Sushma Swaraj', 'L.K. Advani', 'Murli Manohar Joshi',
-    'Jaswant Singh', 'Yashwant Sinha', 'Sharad Pawar', 'Lalu Prasad Yadav', 'Nitish Kumar',
+    'Nitin Gadkari', 'Rajnath Singh', 'Sushma Swaraj', 'L.K. Advani', 'Manohar Joshi',
+    'Sharad Pawar', 'Lalu Prasad Yadav', 'Nitish Kumar',
     'Mulayam Singh Yadav', 'Akhilesh Yadav', 'Mayawati', 'K. Chandrashekar Rao', 'Pinarayi Vijayan',
     'M.K. Stalin', 'Uddhav Thackeray', 'Devendra Fadnavis', 'Amarinder Singh', 'Bhupesh Baghel',
-    'Hemant Soren', 'Biplab Kumar Deb', 'Pema Khandu', 'N. Biren Singh', 'Vijay Rupani',
-    'Ashok Gehlot', 'Bhupendra Patel', 'Basavaraj Bommai', 'B.S. Yediyurappa', 'Jagan Mohan Reddy',
-    'K. Rosaiah', 'Kiran Kumar Reddy', 'N. Kiran Kumar Reddy', 'N. Chandrababu Naidu', 'Y.S. Jagan Mohan Reddy',
-    'K. Chandrasekhar Rao', 'K. Chandrashekar Rao', 'Siddaramaiah', 'H.D. Kumaraswamy', 'B.S. Yediyurappa',
-    'D.V. Sadananda Gowda', 'Jagadish Shettar', 'S. Bangarappa', 'Veerappa Moily', 'S.M. Krishna',
-    'D. Devaraj Urs', 'Ramakrishna Hegde', 'J.H. Patel', 'S. Nijalingappa', 'K. Hanumanthaiya',
-    'Kengal Hanumanthaiah', 'B.D. Jatti', 'Veerendra Patil', 'S.R. Bommai', 'J. Jayalalithaa',
-    'M. Karunanidhi', 'M.G. Ramachandran', 'C.N. Annadurai', 'E.V. Ramasamy', 'Periyar E.V. Ramasamy',
-    'C. Rajagopalachari', 'K. Kamaraj', 'M. Bhaktavatsalam', 'P. Sivakami', 'J. Jayalalithaa',
+    'Hemant Soren', 'N. Biren Singh', 'Vijay Rupani',
+    'Ashok Gehlot', 'Bhupendra Patel',
+  'Siddaramaiah'
   ],
 
   // Businesspeople (100)
@@ -109,19 +92,13 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Shiv Nadar', 'Anil Ambani', 'Kumar Mangalam Birla', 'Narayana Murthy', 'Nandan Nilekani',
     'Vijay Shekhar Sharma', 'Bhavish Aggarwal', 'Ritesh Agarwal', 'Sachin Bansal', 'Binny Bansal',
     'Radhakishan Damani', 'Cyrus Poonawalla', 'Uday Kotak', 'Dilip Shanghvi', 'Sunil Mittal',
-    'Kiran Mazumdar-Shaw', 'Rahul Bajaj', 'Anand Mahindra', 'Venu Srinivasan', 'R.C. Bhargava',
-    'Adi Godrej', 'Jamshyd Godrej', 'Nadir Godrej', 'Pirojsha Godrej', 'Sobha Philip',
-    'K.P. Singh', 'Mallika Srinivasan', 'Vinita Gupta', 'Kiran Nadar', 'Rohini Nilekani',
-    'Falguni Nayar', 'Suchitra Ella', 'Vandana Luthra', 'Shahnaz Husain', 'Indra Nooyi',
-    'Padmasree Warrior', 'Neelam Dhawan', 'Aruna Jayanthi', 'Vanitha Narayanan', 'Vani Kola',
-    'Anuradha Acharya', 'Rashmi Bansal', 'Sridhar Vembu', 'Kunal Shah', 'Nithin Kamath',
-    'Girish Mathrubootham', 'Ravi Gururaj', 'Krishna Kumar', 'Ravi Venkatesan', 'Ramesh Raskar',
-    'Raghuram Rajan', 'Arvind Subramanian', 'Vishal Sikka', 'Romesh Wadhwani', 'Romesh Sobti',
-    'Chanda Kochhar', 'Shikha Sharma', 'Arundhati Bhattacharya', 'Kalpana Morparia', 'Naina Lal Kidwai',
-    'Zia Mody', 'Cyrus Mistry', 'Rakesh Jhunjhunwala', 'Radhakishan Damani', 'Rakesh Jhunjhunwala',
-    'Radhakishan Damani', 'Rakesh Jhunjhunwala', 'Radhakishan Damani', 'Rakesh Jhunjhunwala', 'Radhakishan Damani',
-    'Rakesh Jhunjhunwala', 'Radhakishan Damani', 'Rakesh Jhunjhunwala', 'Radhakishan Damani', 'Rakesh Jhunjhunwala',
-    'Radhakishan Damani', 'Rakesh Jhunjhunwala', 'Radhakishan Damani', 'Rakesh Jhunjhunwala', 'Radhakishan Damani',
+    'Kiran Mazumdar-Shaw', 'Rahul Bajaj', 'Anand Mahindra',
+    'Adi Godrej',
+    'Falguni Nayar', 'Indra Nooyi',
+     'Sridhar Vembu', 'Kunal Shah', 'Nithin Kamath',
+    
+    'Raghuram Rajan',
+    'Chanda Kochhar', 'Arundhati Bhattacharya',  'Cyrus Mistry', 'Rakesh Jhunjhunwala'
   ],
 
   // Singers/Musicians (100)
@@ -129,79 +106,72 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Lata Mangeshkar', 'Kishore Kumar', 'Mohammed Rafi', 'A.R. Rahman', 'Ilaiyaraaja',
     'Shreya Ghoshal', 'Sonu Nigam', 'Arijit Singh', 'Neha Kakkar', 'Badshah',
     'Diljit Dosanjh', 'Gurdas Maan', 'Papon', 'Sunidhi Chauhan', 'Udit Narayan',
-    'Kumar Sanu', 'Alka Yagnik', 'Asha Bhosle', 'Manna Dey', 'Hemant Kumar',
-    'Shankar Mahadevan', 'Usha Uthup', 'Kavita Krishnamurthy', 'Anuradha Paudwal', 'Sadhana Sargam',
+    'Kumar Sanu', 'Alka Yagnik', 'Asha Bhosle',
+    'Shankar Mahadevan', 'Usha Uthup',
     'K.S. Chithra', 'S.P. Balasubrahmanyam', 'P. Susheela', 'S. Janaki', 'K.J. Yesudas',
-    'Hariharan', 'Shankar-Ehsaan-Loy', 'Vishal-Shekhar', 'Salim-Sulaiman', 'Amit Trivedi',
-    'Mithoon', 'Pritam', 'Vishal Dadlani', 'Shekhar Ravjiani', 'Ankit Tiwari',
-    'Arko Pravo Mukherjee', 'Tanishk Bagchi', 'Guru Randhawa', 'Darshan Raval', 'Armaan Malik',
-    'Jubin Nautiyal', 'Asees Kaur', 'Jonita Gandhi', 'Neeti Mohan', 'Shilpa Rao',
-    'Monali Thakur', 'Shalmali Kholgade', 'Palak Muchhal', 'Jasleen Royal', 'Rochak Kohli',
-    'Sachin-Jigar', 'Meet Bros', 'Yo Yo Honey Singh', 'Raftaar', 'Divine',
-    'Naezy', 'Emiway Bantai', 'Raja Kumari', 'Ritviz', 'Nucleya',
-    'Nucleya', 'The Local Train', 'Parvaaz', 'Indian Ocean', 'Agnee',
+    'Hariharan', 'Shankar-Ehsaan-Loy', 'Amit Trivedi',
+    'Mithoon', 'Pritam', 'Vishal Dadlani', 'Ankit Tiwari',
+     'Guru Randhawa', 'Darshan Raval', 'Armaan Malik',
+     'Jonita Gandhi', 'Neeti Mohan', 'Palak Muchhal', 'Jasleen Royal',
+     'Yo Yo Honey Singh', 'Raftaar', 'Divine',
+    'Naezy', 'Emiway Bantai', 'Raja Kumari', 'Ritviz', 
+    'Nucleya',  'Parvaaz',
   ],
 
-  // Directors (100)
+  // Directors (Top 35)
   directors: [
     'Rajkumar Hirani', 'Sanjay Leela Bhansali', 'Karan Johar', 'Rohit Shetty', 'Aamir Khan',
     'Anurag Kashyap', 'Vishal Bhardwaj', 'Imtiaz Ali', 'Zoya Akhtar', 'Farhan Akhtar',
     'S.S. Rajamouli', 'Mani Ratnam', 'Shankar', 'A.R. Murugadoss', 'Atlee',
-    'Satyajit Ray', 'Ritwik Ghatak', 'Mrinal Sen', 'Guru Dutt', 'Bimal Roy',
-    'Mehboob Khan', 'V. Shantaram', 'Raj Kapoor', 'Yash Chopra', 'Subhash Ghai',
-    'Ramesh Sippy', 'Rakesh Roshan', 'David Dhawan', 'Priyadarshan', 'Anees Bazmee',
-    'Farah Khan', 'Kabir Khan', 'Nitesh Tiwari', 'Ashutosh Gowariker', 'Rakeysh Omprakash Mehra',
-    'Shoojit Sircar', 'Sriram Raghavan', 'Neeraj Pandey', 'Abhishek Chaubey', 'Hansal Mehta',
-    'Anubhav Sinha', 'Tigmanshu Dhulia', 'Sujoy Ghosh', 'Bejoy Nambiar', 'Shimit Amin',
-    'Nikhil Advani', 'Siddharth Anand', 'Rohit Dhawan', 'Remo D\'Souza', 'Ali Abbas Zafar',
-    'Abhishek Varman', 'Vikas Bahl', 'Gauri Shinde', 'Meghna Gulzar', 'Reema Kagti',
-    'Nandita Das', 'Mira Nair', 'Deepa Mehta', 'Gurinder Chadha', 'Anurag Basu',
-    'Madhur Bhandarkar', 'Prakash Jha', 'Sudhir Mishra', 'Ketan Mehta', 'Govind Nihalani',
-    'Shyam Benegal', 'Mani Kaul', 'Kumar Shahani', 'Adoor Gopalakrishnan', 'G. Aravindan',
-    'John Abraham', 'R. Balki', 'Rakeysh Omprakash Mehra', 'Shoojit Sircar', 'Sriram Raghavan',
-    'Neeraj Pandey', 'Abhishek Chaubey', 'Hansal Mehta', 'Anubhav Sinha', 'Tigmanshu Dhulia',
-    'Sujoy Ghosh', 'Bejoy Nambiar', 'Shimit Amin', 'Nikhil Advani', 'Siddharth Anand',
+    'Satyajit Ray', 'Raj Kapoor', 'Yash Chopra', 'Rakesh Roshan', 'Priyadarshan', 
+    'Farah Khan', 'Kabir Khan', 'Nitesh Tiwari'
   ],
 
-  // Athletes (100)
+  // Athletes (60 - Non-Cricket)
   athletes: [
-    'PV Sindhu', 'Saina Nehwal', 'Sania Mirza', 'Leander Paes', 'Mahesh Bhupathi',
-    'Abhinav Bindra', 'Vijender Singh', 'Mary Kom', 'Dipa Karmakar', 'Neeraj Chopra',
-    'Bajrang Punia', 'Ravi Kumar Dahiya', 'Deepak Punia', 'Sakshi Malik', 'Vinesh Phogat',
-    'Geeta Phogat', 'Babita Phogat', 'Priyanka Phogat', 'Ritu Phogat', 'Sangita Phogat',
-    'Hima Das', 'Dutee Chand', 'Anju Bobby George', 'PT Usha', 'Milkha Singh',
-    'Anil Kumble', 'Sachin Tendulkar', 'Virat Kohli', 'MS Dhoni', 'Rohit Sharma',
-    'Kapil Dev', 'Sunil Gavaskar', 'Rahul Dravid', 'Sourav Ganguly', 'Virender Sehwag',
-    'Yuvraj Singh', 'Harbhajan Singh', 'Ravichandran Ashwin', 'Jasprit Bumrah', 'Ravindra Jadeja',
-    'Hardik Pandya', 'KL Rahul', 'Shikhar Dhawan', 'Rishabh Pant', 'Mohammed Shami',
-    'Bhuvneshwar Kumar', 'Ishant Sharma', 'Umesh Yadav', 'Mohammed Siraj', 'Shardul Thakur',
-    'Washington Sundar', 'Axar Patel', 'Yuzvendra Chahal', 'Kuldeep Yadav', 'Ravi Bishnoi',
-    'Suryakumar Yadav', 'Ishan Kishan', 'Sanju Samson', 'Shreyas Iyer', 'Mayank Agarwal',
-    'Cheteshwar Pujara', 'Ajinkya Rahane', 'Wriddhiman Saha', 'Dinesh Karthik', 'Gautam Gambhir',
-    'VVS Laxman', 'Mohammad Azharuddin', 'Navjot Singh Sidhu', 'Ajay Jadeja', 'Robin Singh',
-    'Javagal Srinath', 'Venkatesh Prasad', 'Zaheer Khan', 'Irfan Pathan', 'Yusuf Pathan',
-    'Suresh Raina', 'Virender Sehwag', 'Yuvraj Singh', 'Mohammad Kaif', 'Dinesh Mongia',
-    'Hemang Badani', 'Reetinder Sodhi', 'Ajit Agarkar', 'Ashish Nehra', 'Munaf Patel',
-    'S Sreesanth', 'RP Singh', 'Praveen Kumar', 'Amit Mishra', 'Piyush Chawla',
-    'Harbhajan Singh', 'Ravichandran Ashwin', 'Ravindra Jadeja', 'Mohammed Shami', 'Bhuvneshwar Kumar',
+    // Badminton
+    'PV Sindhu', 'Saina Nehwal', 'Kidambi Srikanth', 'Lakshya Sen', 'Ashwini Ponnappa', 'Jwala Gutta', 'Prakash Padukone',
+    
+    // Tennis
+    'Sania Mirza', 'Leander Paes', 'Mahesh Bhupathi', 'Rohan Bopanna',
+    
+    // Shooting
+    'Abhinav Bindra', 'Rajyavardhan Singh Rathore', 'Gagan Narang', 'Manu Bhaker',
+    
+    // Boxing
+    'Vijender Singh', 'Mary Kom', 'Nikhat Zareen', 'Amit Panghal',
+    
+    // Wrestling
+    'Bajrang Punia', 'Deepak Punia','Sakshi Malik', 'Vinesh Phogat',
+    'Geeta Phogat', 'Babita Phogat',
+    
+    // Athletics/Track & Field
+    'Neeraj Chopra', 'Hima Das', 'Anju Bobby George', 'PT Usha',
+    'Milkha Singh',
+    
+    // Chess
+    'Vishwanathan Anand', 'D Gukesh', 'R Praggnanandhaa', 'Vidit Gujrathi',
+    
+    // Football
+    'Sunil Chhetri', 'Bhaichung Bhutia',
+    
+    // Hockey
+    'Dhyan Chand',
+    
+    // Weightlifting
+    'Mirabai Chanu', 'Karnam Malleswari',
+    
+    // Gymnastics
+    'Dipa Karmakar',
   ],
 
-  // Writers (100)
+  // Writers (Top 35)
   writers: [
     'Rabindranath Tagore', 'Ruskin Bond', 'Arundhati Roy', 'Chetan Bhagat', 'Amish Tripathi',
     'Gulzar', 'Javed Akhtar', 'Mirza Ghalib', 'Kalidasa', 'Premchand',
-    'R.K. Narayan', 'Mulk Raj Anand', 'Raja Rao', 'Khushwant Singh', 'Vikram Seth',
-    'Salman Rushdie', 'Amitav Ghosh', 'Jhumpa Lahiri', 'Anita Desai', 'Kiran Desai',
-    'Aravind Adiga', 'Rohinton Mistry', 'Manu Joseph', 'Jeet Thayil', 'Tishani Doshi',
-    'Chitra Banerjee Divakaruni', 'Bharati Mukherjee', 'Jhumpa Lahiri', 'Anita Desai', 'Kiran Desai',
-    'Amitav Ghosh', 'Vikram Chandra', 'Anita Nair', 'Shashi Tharoor', 'Pankaj Mishra',
-    'William Dalrymple', 'Ramachandra Guha', 'Shashi Deshpande', 'Kamala Markandaya', 'Nayantara Sahgal',
-    'Anita Rau Badami', 'Shauna Singh Baldwin', 'Aravind Adiga', 'Rohinton Mistry', 'Manu Joseph',
-    'Jeet Thayil', 'Tishani Doshi', 'Amitav Ghosh', 'Vikram Chandra', 'Anita Nair',
-    'Shashi Tharoor', 'Pankaj Mishra', 'William Dalrymple', 'Ramachandra Guha', 'Shashi Deshpande',
-    'Kamala Markandaya', 'Nayantara Sahgal', 'Anita Rau Badami', 'Shauna Singh Baldwin', 'Bharati Mukherjee',
-    'Chitra Banerjee Divakaruni', 'Jhumpa Lahiri', 'Anita Desai', 'Kiran Desai', 'Aravind Adiga',
-    'Rohinton Mistry', 'Manu Joseph', 'Jeet Thayil', 'Tishani Doshi', 'Amitav Ghosh',
+    'R.K. Narayan', 'Mulk Raj Anand', 'Khushwant Singh', 'Vikram Seth',
+    'Salman Rushdie', 'Shashi Tharoor',
+     'Ramachandra Guha',
   ],
 
   // Models (100)
@@ -209,43 +179,123 @@ const INDIAN_PERSONALITIES_BY_CATEGORY: Record<string, string[]> = {
     'Aishwarya Rai', 'Priyanka Chopra', 'Lara Dutta', 'Diana Penty', 'Nargis Fakhri',
     'Amy Jackson', 'Jacqueline Fernandez', 'Nora Fatehi', 'Malaika Arora', 'Karisma Kapoor',
     'Raveena Tandon', 'Urmila Matondkar', 'Sonali Bendre', 'Manisha Koirala', 'Tabu',
-    'Vidya Balan', 'Konkona Sen Sharma', 'Rani Mukerji', 'Preity Zinta', 'Bipasha Basu',
-    'Esha Deol', 'Tara Sharma', 'Amrita Rao', 'Genelia D\'Souza', 'Asin',
-    'Tamannaah', 'Ileana D\'Cruz', 'Shruti Haasan', 'Nayanthara', 'Samantha Ruth Prabhu',
-    'Rashmika Mandanna', 'Pooja Hegde', 'Anushka Shetty', 'Trisha', 'Tamannaah Bhatia',
-    'Kajal Aggarwal', 'Shriya Saran', 'Hansika Motwani', 'Rakul Preet Singh', 'Yami Gautam',
-    'Bhumi Pednekar', 'Radhika Apte', 'Richa Chadda', 'Tripti Dimri', 'Sanya Malhotra',
-    'Fatima Sana Shaikh', 'Zaira Wasim', 'Mrunal Thakur', 'Kriti Sanon', 'Vaani Kapoor',
-    'Aditi Rao Hydari', 'Diana Penty', 'Amyra Dastur', 'Sobhita Dhulipala', 'Radhika Madan',
-    'Banita Sandhu', 'Sayani Gupta', 'Rasika Dugal', 'Tillotama Shome', 'Geetanjali Thapa',
-    'Swara Bhasker', 'Kalki Koechlin', 'Gul Panag', 'Nimrat Kaur', 'Mallika Sherawat',
-    'Celina Jaitly', 'Neha Dhupia', 'Minissha Lamba', 'Neha Sharma', 'Urvashi Rautela',
-    'Pooja Hegde', 'Tamannaah', 'Ileana D\'Cruz', 'Shruti Haasan', 'Nayanthara',
-    'Samantha Ruth Prabhu', 'Rashmika Mandanna', 'Anushka Shetty', 'Trisha', 'Kajal Aggarwal',
-    'Shriya Saran', 'Hansika Motwani', 'Rakul Preet Singh', 'Yami Gautam', 'Bhumi Pednekar',
-    'Radhika Apte', 'Richa Chadda', 'Tripti Dimri', 'Sanya Malhotra', 'Fatima Sana Shaikh',
-    'Zaira Wasim', 'Mrunal Thakur', 'Kriti Sanon', 'Vaani Kapoor', 'Amyra Dastur',
+    'Vidya Balan',  'Rani Mukerji', 'Preity Zinta', 'Bipasha Basu',
+    'Esha Deol', 'Tara Sharma'
+  ],
+
+  // Scientists (Top 35)
+  scientists: [
+    'Srinivasa Ramanujan', 'Jagadish Chandra Bose', 'Homi J. Bhabha', 'Vikram Sarabhai',
+    'A.P.J. Abdul Kalam',  'C.V. Raman', 
+    'Subrahmanyan Chandrasekhar',
+    'Salim Ali',
+    'Nambi Narayanan', 'Kalpana Chawla'
+  ],
+
+  // Freedom Fighters (Top 35)
+  freedomFighters: [
+    'Mahatma Gandhi', 'Bhagat Singh', 'Chandrashekhar Azad', 'Subhas Chandra Bose', 'Sardar Vallabhbhai Patel',
+    'Jawaharlal Nehru', 'Bal Gangadhar Tilak', 'Lala Lajpat Rai', 'Sarojini Naidu', 'Annie Besant',
+    'Maulana Abul Kalam Azad', 'Rajendra Prasad', 'C. Rajagopalachari', 'B.R. Ambedkar',
+    'Rani Lakshmibai', 'Kasturba Gandhi'
+  ],
+
+  // YouTubers (Top 35)
+  youtubers: [
+    'CarryMinati', 'Technical Guruji', 'BB Ki Vines', 'Sandeep Maheshwari', 'Prajakta Koli',
+    'Komal Pandey', 'Ranveer Allahbadia', 'Dhruv Rathee', 'Flying Beast',
+    'Ashish Chanchlani', 'Harsh Beniwal', 'Amit Bhadana', 'Mumbiker Nikhil',
+    'Gaurav Taneja', 'Dhruv Rathee',
+    'Mohak Mangal', 'Ankur Warikoo',
+    'Raj Shamani', 'Tanmay Bhat', 'Rohan Joshi', 'Biswa Kalyan Rath',
+    'Zakir Khan', 'Samay Raina', 'Harsh Gujral', 'Anubhav Singh Bassi', 'Munawar Faruqui',
   ],
 
   // Comedians (100)
   comedians: [
     'Kapil Sharma', 'Johnny Lever', 'Rajpal Yadav', 'Paresh Rawal', 'Boman Irani',
-    'Anupam Kher', 'Riteish Deshmukh', 'Arshad Warsi', 'Vivek Oberoi', 'Fardeen Khan',
-    'Zayed Khan', 'Harman Baweja', 'Neil Nitin Mukesh', 'Imran Khan', 'Ranvir Shorey',
+    'Anupam Kher', 'Riteish Deshmukh', 'Arshad Warsi', 'Vivek Oberoi', 
+    'Imran Khan', 'Ranvir Shorey',
     'Kay Kay Menon', 'Manoj Bajpayee', 'Sanjay Dutt', 'Sunil Shetty', 'Akshay Khanna',
-    'Randeep Hooda', 'Rajkummar Rao', 'Vineet Kumar Singh', 'Jaideep Ahlawat', 'Vijay Varma',
-    'Manoj Pahwa', 'Gulshan Grover', 'Danny Denzongpa', 'Anupam Kher', 'Boman Irani',
+    'Randeep Hooda', 'Rajkummar Rao','Vijay Varma',
+    'Anupam Kher', 'Boman Irani',
     'Paresh Rawal', 'Om Puri', 'Amrish Puri', 'Shammi Kapoor', 'Shashi Kapoor',
     'Jeetendra', 'Mithun Chakraborty', 'Govinda', 'Sanjay Kapoor', 'Bobby Deol',
-    'Karan Kapoor', 'Kunal Kapoor', 'Rahul Bose', 'Rahul Khanna', 'Rahul Dev',
-    'Rahul Singh', 'Rahul Roy', 'Rahul Bhat', 'Rahul Mittra', 'Rahul Dev',
     'Vir Das', 'Biswa Kalyan Rath', 'Kanan Gill', 'Kenny Sebastian', 'Abish Mathew',
     'Zakir Khan', 'Atul Khatri', 'Sorabh Pant', 'Rohan Joshi', 'Tanmay Bhat',
     'Gursimran Khamba', 'Ashish Shakya', 'Rahul Subramanian', 'Amit Tandon', 'Abhishek Upmanyu',
     'Anubhav Singh Bassi', 'Munawar Faruqui', 'Samay Raina', 'Rahul Dua', 'Aakash Gupta',
     'Varun Thakur', 'Aadar Malik', 'Urooj Ashfaq', 'Shreeja Chaturvedi', 'Sumukhi Suresh',
-    'Kaneez Surka', 'Neeti Palta', 'Aditi Mittal', 'Radhika Vaz', 'Anu Menon',
-    'Supriya Joshi', 'Mallika Dua', 'Sumukhi Suresh', 'Kaneez Surka', 'Neeti Palta',
+    'Kaneez Surka', 'Neeti Palta',
+    'Supriya Joshi', 'Mallika Dua',
+  ],
+
+  // Foreign Actors (Top 20)
+  foreignActors: [
+    'Tom Hanks', 'Leonardo DiCaprio', 'Brad Pitt', 'Robert Downey Jr', 'Johnny Depp',
+    'Will Smith', 'Tom Cruise', 'Denzel Washington', 'Morgan Freeman', 'Samuel L. Jackson',
+     'Matt Damon', 'Ryan Reynolds', 'Chris Evans', 'Chris Hemsworth',
+     'Dwayne Johnson',
+  ],
+
+  // Foreign Actresses (Top 20)
+  foreignActresses: [
+     'Scarlett Johansson', 'Jennifer Lawrence', 'Angelina Jolie', 'Emma Watson',
+    'Natalie Portman', 'Anne Hathaway',  'Gal Gadot', 'Margot Robbie',
+    'Zendaya'
+  ],
+
+  // Foreign Musicians/Singers (Top 20)
+  foreignMusicians: [
+    'Michael Jackson', 'Madonna', 'Taylor Swift',
+    'Beyoncé', 'Adele', 'Ed Sheeran', 'Justin Bieber', 'Ariana Grande',
+    'Billie Eilish', 'Drake', 'Eminem', 'Rihanna', 'Lady Gaga',
+    'Bruno Mars', 'Dua Lipa',
+  ],
+
+  // Foreign Athletes (Top 20)
+  foreignAthletes: [
+    'Lionel Messi', 'Cristiano Ronaldo', 'LeBron James', 'Michael Jordan', 'Serena Williams',
+    'Roger Federer', 'Rafael Nadal', 'Usain Bolt', 'Tiger Woods',
+    'Kobe Bryant', 'Muhammad Ali', 'Pele', 'Diego Maradona', 'Lewis Hamilton',
+    'Novak Djokovic', 'Stephen Curry', 'Kylian Mbappé', 'Simone Biles',
+  ],
+
+  // Foreign Scientists (Top 20)
+  foreignScientists: [
+    'Albert Einstein', 'Isaac Newton', 'Charles Darwin', 'Marie Curie', 'Stephen Hawking',
+    'Nikola Tesla', 'Galileo Galilei', 'Leonardo da Vinci', 'Thomas Edison', 'Alexander Graham Bell',
+     'James Watson',  'Rosalind Franklin',
+    'Niels Bohr', 'Erwin Schrödinger',
+  ],
+
+  // Foreign Politicians/Leaders (Top 20)
+  foreignPoliticians: [
+    'Barack Obama', 'Donald Trump', 'Joe Biden', 'Winston Churchill', 'Nelson Mandela',
+    'Abraham Lincoln', 'George Washington', 'Franklin D. Roosevelt', 'John F. Kennedy', 'Martin Luther King Jr',
+    'Mahatma Gandhi', 'Vladimir Putin', 'Xi Jinping', 'Angela Merkel', 'Emmanuel Macron',
+    'Justin Trudeau', 'Volodymyr Zelensky', 'Boris Johnson',
+  ],
+
+  // Foreign Businesspeople (Top 20)
+  foreignBusinesspeople: [
+    'Elon Musk', 'Bill Gates', 'Warren Buffett', 'Jeff Bezos', 'Steve Jobs',
+    'Mark Zuckerberg', 'Tim Cook', 'Larry Page', 'Sergey Brin', 'Larry Ellison',
+    'Oprah Winfrey', 'Jack Ma'
+  ],
+
+  // Foreign Directors (Top 20)
+  foreignDirectors: [
+    'Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese', 'Quentin Tarantino', 'James Cameron',
+     'Alfred Hitchcock',
+     'Russo Brothers', 
+  ],
+
+  // Foreign Writers (Top 20)
+  foreignWriters: [
+    'William Shakespeare', 'J.K. Rowling', 'Agatha Christie',
+     'Charles Dickens', 'Mark Twain', 
+    'George Orwell'
   ],
 };
 
@@ -259,7 +309,7 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 // Select evenly distributed personalities from each category
-const selectEvenlyDistributed = (count: number = 100): string[] => {
+const selectEvenlyDistributed = (count: number = 100, excludeNames: Set<string> = new Set()): string[] => {
   const categories = Object.keys(INDIAN_PERSONALITIES_BY_CATEGORY);
   const perCategory = Math.floor(count / categories.length);
   const remainder = count % categories.length;
@@ -274,6 +324,9 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
   const selected: string[] = [];
   const usedNames = new Set<string>();
   
+  // Add excluded names to usedNames to prevent selection
+  excludeNames.forEach((name) => usedNames.add(name.toLowerCase()));
+  
   // First pass: try to get evenly distributed selection
   categories.forEach((category, index) => {
     const uniqueList = deduplicatedCategories[category];
@@ -283,9 +336,10 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
     let taken = 0;
     for (const name of shuffled) {
       if (taken >= takeCount) break;
-      if (!usedNames.has(name)) {
+      const normalizedName = name.toLowerCase();
+      if (!usedNames.has(normalizedName)) {
         selected.push(name);
-        usedNames.add(name);
+        usedNames.add(normalizedName);
         taken++;
       }
     }
@@ -305,9 +359,10 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
       
       for (const name of shuffled) {
         if (filled >= needed) break;
-        if (!usedNames.has(name)) {
+        const normalizedName = name.toLowerCase();
+        if (!usedNames.has(normalizedName)) {
           selected.push(name);
-          usedNames.add(name);
+          usedNames.add(normalizedName);
           filled++;
         }
       }
@@ -318,9 +373,9 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
   return shuffleArray(selected).slice(0, count);
 };
 
-export const fetchFamousPersonalities = async (count: number = 100): Promise<Personality[]> => {
-  // Use static list and select evenly from categories
-  const selected = selectEvenlyDistributed(count);
+export const fetchFamousPersonalities = async (count: number = 100, excludeNames: Set<string> = new Set()): Promise<Personality[]> => {
+  // Use static list and select evenly from categories, excluding previously shown names
+  const selected = selectEvenlyDistributed(count, excludeNames);
   
   return selected.map((name, index) => ({
     id: `personality-${index}`,
