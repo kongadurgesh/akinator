@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import PersonalityGrid from './components/PersonalityGrid';
 import QuestionPanel from './components/QuestionPanel';
 import Leaderboard from './components/Leaderboard';
+import Rules from './components/Rules';
 import { Personality, Question, LeaderboardEntry, Guess } from './types';
 import { fetchFamousPersonalities } from './services/personalityApi';
 
 const App = () => {
+  const [activeView, setActiveView] = useState<'game' | 'rules'>('game');
   const [personalities, setPersonalities] = useState<Personality[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -23,6 +25,9 @@ const App = () => {
   const [finishModalTitle, setFinishModalTitle] = useState('');
   const [finishModalSubtitle, setFinishModalSubtitle] = useState('');
   const [hasCalculatedScoresForRound, setHasCalculatedScoresForRound] = useState(false);
+  const [markerMode, setMarkerMode] = useState<'green' | 'red' | null>(null);
+  const [greenMarkedPersonalities, setGreenMarkedPersonalities] = useState<Set<string>>(new Set());
+  const [redMarkedPersonalities, setRedMarkedPersonalities] = useState<Set<string>>(new Set());
 
   const createEmptyQuestions = (): Question[] =>
     Array.from({ length: 10 }, (_, index) => ({
@@ -143,6 +148,11 @@ const App = () => {
     setSelectedByNameInput('');
     setIsNameRevealed(false);
     setHasCalculatedScoresForRound(false);
+    setQuestions(createEmptyQuestions());
+    // Clear marked personalities
+    setGreenMarkedPersonalities(new Set());
+    setRedMarkedPersonalities(new Set());
+    setMarkerMode(null);
     try {
       const fetchedPersonalities = await fetchFamousPersonalities(100);
       setPersonalities(fetchedPersonalities);
@@ -150,6 +160,44 @@ const App = () => {
       console.error('Error shuffling personalities:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePersonalityClick = (personalityId: string) => {
+    if (!markerMode) return;
+
+    if (markerMode === 'green') {
+      setGreenMarkedPersonalities((prev) => {
+        const newSet = new Set(prev);
+        if (newSet.has(personalityId)) {
+          newSet.delete(personalityId);
+        } else {
+          newSet.add(personalityId);
+          // Remove from red if it was there
+          setRedMarkedPersonalities((redPrev) => {
+            const redNewSet = new Set(redPrev);
+            redNewSet.delete(personalityId);
+            return redNewSet;
+          });
+        }
+        return newSet;
+      });
+    } else if (markerMode === 'red') {
+      setRedMarkedPersonalities((prev) => {
+        const newSet = new Set(prev);
+        if (newSet.has(personalityId)) {
+          newSet.delete(personalityId);
+        } else {
+          newSet.add(personalityId);
+          // Remove from green if it was there
+          setGreenMarkedPersonalities((greenPrev) => {
+            const greenNewSet = new Set(greenPrev);
+            greenNewSet.delete(personalityId);
+            return greenNewSet;
+          });
+        }
+        return newSet;
+      });
     }
   };
 
@@ -186,6 +234,14 @@ const App = () => {
       (g) => g.guess.trim().toLowerCase() !== normalizedSelectedName
     );
 
+    // Track correct guesses and their question numbers
+    const correctGuesses = guesses.filter(
+      (g) => g.guess.trim().toLowerCase() === normalizedSelectedName
+    );
+    const allCorrectGuessesAfterQ5 = correctGuesses.length > 0 && 
+      correctGuesses.every((g) => g.questionNumber > 5);
+    const noCorrectGuesses = correctGuesses.length === 0;
+
     guesses.forEach((guessEntry) => {
       const isCorrect = guessEntry.guess.trim().toLowerCase() === normalizedSelectedName;
       if (!isCorrect) return;
@@ -211,17 +267,19 @@ const App = () => {
       }
     });
 
-    // Chooser gets ONLY +1000 total if there is at least one incorrect guess in the round.
-    // No "deduction" points are added to the chooser.
-    if (hasAnyIncorrectGuess && chooserName) {
+    // Chooser scoring logic:
+    // - If all guessers took more than 5 questions (or no one guessed correctly), award 500 points
+    // - Otherwise, if there is at least one incorrect guess, award 1000 points
+    if (chooserName && hasAnyIncorrectGuess) {
+      const chooserPoints = (allCorrectGuessesAfterQ5 || noCorrectGuesses) ? 500 : 1000;
       const chooserIndex = updatedLeaderboard.findIndex((e) => e.name === chooserName);
       if (chooserIndex !== -1) {
-        updatedLeaderboard[chooserIndex].score += 1000;
+        updatedLeaderboard[chooserIndex].score += chooserPoints;
       } else {
         updatedLeaderboard.push({
           id: `entry-${Date.now()}-${chooserName}`,
           name: chooserName,
-          score: 1000,
+          score: chooserPoints,
           timestamp: Date.now(),
         });
       }
@@ -286,11 +344,24 @@ const App = () => {
     );
   }
 
+  if (activeView === 'rules') {
+    return <Rules onBack={() => setActiveView('game')} />;
+  }
+
   return (
     <>
       <div className="w-screen h-screen flex bg-gray-100 overflow-hidden">
         <div className="w-[60%] h-full border-r border-gray-300">
-          <PersonalityGrid personalities={personalities} onShuffle={handleShuffle} />
+          <PersonalityGrid
+            personalities={personalities}
+            onShuffle={handleShuffle}
+            onShowRules={() => setActiveView('rules')}
+            markerMode={markerMode}
+            onMarkerModeChange={setMarkerMode}
+            greenMarkedPersonalities={greenMarkedPersonalities}
+            redMarkedPersonalities={redMarkedPersonalities}
+            onPersonalityClick={handlePersonalityClick}
+          />
         </div>
         
         <div className="w-[25%] h-full border-r border-gray-300">
@@ -324,6 +395,8 @@ const App = () => {
             onAddGuess={handleAddGuess}
             selectedName={selectedName}
             isNameRevealed={isNameRevealed}
+            selectedByName={selectedByName}
+            selectedByNameInput={selectedByNameInput}
           />
         </div>
       </div>

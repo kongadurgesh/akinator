@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { LeaderboardEntry, Guess } from '../types';
 
 interface LeaderboardProps {
@@ -16,6 +17,8 @@ interface LeaderboardProps {
   onAddGuess: () => void;
   selectedName: string;
   isNameRevealed: boolean;
+  selectedByName: string;
+  selectedByNameInput: string;
 }
 
 const Leaderboard = ({
@@ -34,6 +37,8 @@ const Leaderboard = ({
   onAddGuess,
   selectedName,
   isNameRevealed,
+  selectedByName,
+  selectedByNameInput,
 }: LeaderboardProps) => {
   const handleNameInputChange = (value: string) => {
     onParticipantNameChange(value);
@@ -51,8 +56,23 @@ const Leaderboard = ({
   };
 
   const sortedLeaderboard = [...leaderboard].sort((a, b) => b.score - a.score);
-  const participantOptions = sortedLeaderboard.map((e) => e.name);
+  // Exclude the person who chose the name from guess options
+  const chooserName = selectedByName.trim() || selectedByNameInput.trim();
+  const participantOptions = sortedLeaderboard
+    .map((e) => e.name)
+    .filter((name) => name.toLowerCase() !== chooserName.toLowerCase());
   const isGuessingDisabled = participantOptions.length === 0;
+
+  // If current guess participant is the chooser, auto-select first available option
+  useEffect(() => {
+    if (chooserName && currentGuessParticipant.trim().toLowerCase() === chooserName.toLowerCase()) {
+      if (participantOptions.length > 0) {
+        onCurrentGuessParticipantChange(participantOptions[0]);
+      } else {
+        onCurrentGuessParticipantChange('');
+      }
+    }
+  }, [chooserName, currentGuessParticipant, participantOptions, onCurrentGuessParticipantChange]);
 
   const handleGuessKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
@@ -162,7 +182,7 @@ const Leaderboard = ({
             </div>
           )}
           <input
-            type="text"
+            type="password"
             value={currentGuess}
             onChange={(e) => onCurrentGuessChange(e.target.value)}
             onKeyDown={handleGuessKeyDown}
@@ -232,7 +252,9 @@ const Leaderboard = ({
                     <span className="font-medium text-gray-800">{guessEntry.participantName}</span>
                     <span className="text-gray-600">Q{guessEntry.questionNumber}</span>
                   </div>
-                  <div className="text-gray-700 mt-0.5">{guessEntry.guess}</div>
+                  <div className="text-gray-700 mt-0.5">
+                    {isNameRevealed ? guessEntry.guess : '•'.repeat(Math.min(guessEntry.guess.length, 20))}
+                  </div>
                   {selectedName.trim() && isNameRevealed && (
                     <div className={`text-xs font-medium mt-0.5 ${
                       isCorrect ? 'text-green-600' : 'text-red-600'
