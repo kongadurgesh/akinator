@@ -123,6 +123,36 @@ const App = () => {
     setParticipantName('');
   };
 
+  const handleRemoveParticipant = (participantId: string) => {
+    // Find the participant to remove
+    const participantToRemove = leaderboard.find((entry) => entry.id === participantId);
+    if (!participantToRemove) return;
+
+    // Remove from leaderboard
+    setLeaderboard((prev) => prev.filter((entry) => entry.id !== participantId));
+
+    // Remove their guesses
+    setGuesses((prev) => prev.filter((guess) => guess.participantName !== participantToRemove.name));
+
+    // If this participant was selected for guessing, clear or select another
+    if (currentGuessParticipant === participantToRemove.name) {
+      const remainingParticipants = leaderboard
+        .filter((entry) => entry.id !== participantId)
+        .map((entry) => entry.name);
+      if (remainingParticipants.length > 0) {
+        setCurrentGuessParticipant(remainingParticipants[0]);
+      } else {
+        setCurrentGuessParticipant('');
+      }
+    }
+
+    // If this participant was the chooser, clear chooser info
+    if (selectedByName === participantToRemove.name) {
+      setSelectedByName('');
+      setSelectedByNameInput('');
+    }
+  };
+
   const handleShuffle = async () => {
     setLoading(true);
     // Reset the current round state on shuffle
@@ -388,6 +418,7 @@ const App = () => {
             participantName={participantName}
             onParticipantNameChange={handleParticipantNameChange}
             onAddParticipant={handleAddParticipant}
+            onRemoveParticipant={handleRemoveParticipant}
             onFinishGame={handleFinishGame}
             guesses={guesses}
             currentGuessParticipant={currentGuessParticipant}

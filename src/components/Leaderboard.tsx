@@ -6,6 +6,7 @@ interface LeaderboardProps {
   participantName: string;
   onParticipantNameChange: (name: string) => void;
   onAddParticipant: () => void;
+  onRemoveParticipant: (participantId: string) => void;
   onFinishGame: () => void;
   guesses: Guess[];
   currentGuessParticipant: string;
@@ -25,6 +26,7 @@ const Leaderboard = ({
   participantName,
   onParticipantNameChange,
   onAddParticipant,
+  onRemoveParticipant,
   onFinishGame,
   guesses,
   currentGuessParticipant,
@@ -120,13 +122,23 @@ const Leaderboard = ({
             sortedLeaderboard.map((entry, index) => (
               <div
                 key={entry.id}
-                className="bg-white border border-gray-300 rounded-md p-1.5 flex justify-between items-center"
+                className="bg-white border border-gray-300 rounded-md p-1.5 flex justify-between items-center gap-1"
               >
                 <div className="flex items-center gap-1 flex-1 min-w-0">
                   <span className="font-bold text-gray-600 text-xs">#{index + 1}</span>
                   <span className="text-xs font-medium text-gray-800 truncate">{entry.name}</span>
                 </div>
-                <span className="text-xs font-semibold text-blue-600 ml-1">{entry.score}</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-semibold text-blue-600">{entry.score}</span>
+                  <button
+                    onClick={() => onRemoveParticipant(entry.id)}
+                    className="px-1.5 py-0.5 text-red-600 hover:bg-red-50 rounded text-xs font-medium transition-colors"
+                    aria-label={`Remove ${entry.name}`}
+                    title={`Remove ${entry.name}`}
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
             ))
           )}
