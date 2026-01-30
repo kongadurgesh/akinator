@@ -15,3 +15,11 @@ export interface LeaderboardEntry {
   score: number;
   timestamp: number;
 }
+
+export interface Guess {
+  id: string;
+  participantName: string;
+  guess: string;
+  questionNumber: number;
+  timestamp: number;
+}

@@ -2,12 +2,21 @@ import { Personality } from '../types';
 
 interface PersonalityGridProps {
   personalities: Personality[];
+  onShuffle: () => void;
 }
 
-const PersonalityGrid = ({ personalities }: PersonalityGridProps) => {
+const PersonalityGrid = ({ personalities, onShuffle }: PersonalityGridProps) => {
   return (
     <div className="w-full h-full flex flex-col p-2 bg-gray-50">
-      <h2 className="text-lg font-bold mb-1.5 text-gray-800">Famous Personalities</h2>
+      <div className="flex items-center justify-between mb-1.5">
+        <h2 className="text-lg font-bold text-gray-800">Famous Personalities</h2>
+        <button
+          onClick={onShuffle}
+          className="px-4 py-1.5 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Next Round
+        </button>
+      </div>
       <div className="flex-1 grid grid-cols-10 gap-1 auto-rows-fr">
         {personalities.map((personality) => (
           <div
