@@ -309,7 +309,7 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 // Select evenly distributed personalities from each category
-const selectEvenlyDistributed = (count: number = 100): string[] => {
+const selectEvenlyDistributed = (count: number = 100, excludeNames: Set<string> = new Set()): string[] => {
   const categories = Object.keys(INDIAN_PERSONALITIES_BY_CATEGORY);
   const perCategory = Math.floor(count / categories.length);
   const remainder = count % categories.length;
@@ -324,6 +324,9 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
   const selected: string[] = [];
   const usedNames = new Set<string>();
   
+  // Add excluded names to usedNames to prevent selection
+  excludeNames.forEach((name) => usedNames.add(name.toLowerCase()));
+  
   // First pass: try to get evenly distributed selection
   categories.forEach((category, index) => {
     const uniqueList = deduplicatedCategories[category];
@@ -333,9 +336,10 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
     let taken = 0;
     for (const name of shuffled) {
       if (taken >= takeCount) break;
-      if (!usedNames.has(name)) {
+      const normalizedName = name.toLowerCase();
+      if (!usedNames.has(normalizedName)) {
         selected.push(name);
-        usedNames.add(name);
+        usedNames.add(normalizedName);
         taken++;
       }
     }
@@ -355,9 +359,10 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
       
       for (const name of shuffled) {
         if (filled >= needed) break;
-        if (!usedNames.has(name)) {
+        const normalizedName = name.toLowerCase();
+        if (!usedNames.has(normalizedName)) {
           selected.push(name);
-          usedNames.add(name);
+          usedNames.add(normalizedName);
           filled++;
         }
       }
@@ -368,9 +373,9 @@ const selectEvenlyDistributed = (count: number = 100): string[] => {
   return shuffleArray(selected).slice(0, count);
 };
 
-export const fetchFamousPersonalities = async (count: number = 100): Promise<Personality[]> => {
-  // Use static list and select evenly from categories
-  const selected = selectEvenlyDistributed(count);
+export const fetchFamousPersonalities = async (count: number = 100, excludeNames: Set<string> = new Set()): Promise<Personality[]> => {
+  // Use static list and select evenly from categories, excluding previously shown names
+  const selected = selectEvenlyDistributed(count, excludeNames);
   
   return selected.map((name, index) => ({
     id: `personality-${index}`,

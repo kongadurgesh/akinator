@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { LeaderboardEntry, Guess } from '../types';
+import { LeaderboardEntry, Guess, Question } from '../types';
 
 interface LeaderboardProps {
   leaderboard: LeaderboardEntry[];
@@ -10,10 +10,9 @@ interface LeaderboardProps {
   guesses: Guess[];
   currentGuessParticipant: string;
   currentGuess: string;
-  currentGuessQuestion: number;
+  questions: Question[];
   onCurrentGuessParticipantChange: (name: string) => void;
   onCurrentGuessChange: (guess: string) => void;
-  onCurrentGuessQuestionChange: (question: number) => void;
   onAddGuess: () => void;
   selectedName: string;
   isNameRevealed: boolean;
@@ -30,10 +29,9 @@ const Leaderboard = ({
   guesses,
   currentGuessParticipant,
   currentGuess,
-  currentGuessQuestion,
+  questions,
   onCurrentGuessParticipantChange,
   onCurrentGuessChange,
-  onCurrentGuessQuestionChange,
   onAddGuess,
   selectedName,
   isNameRevealed,
@@ -62,6 +60,15 @@ const Leaderboard = ({
     .map((e) => e.name)
     .filter((name) => name.toLowerCase() !== chooserName.toLowerCase());
   const isGuessingDisabled = participantOptions.length === 0;
+  
+  // Calculate current question number based on answered questions
+  const answeredQuestionsCount = questions.filter((q) => q.answer !== null).length;
+  const currentQuestionNumber = Math.min(answeredQuestionsCount + 1, 10);
+  
+  // Check if current team already has a guess
+  const teamAlreadyGuessed = currentGuessParticipant.trim() ? guesses.some(
+    (g) => g.participantName.toLowerCase() === currentGuessParticipant.trim().toLowerCase()
+  ) : false;
 
   // If current guess participant is the chooser, auto-select first available option
   useEffect(() => {
@@ -162,17 +169,24 @@ const Leaderboard = ({
               >
                 {participantOptions.map((name) => {
                   const isSelected = currentGuessParticipant === name;
+                  const hasGuessed = guesses.some(
+                    (g) => g.participantName.toLowerCase() === name.toLowerCase()
+                  );
                   return (
                     <button
                       key={name}
                       type="button"
                       onClick={() => onCurrentGuessParticipantChange(name)}
+                      disabled={hasGuessed && !isSelected}
                       className={`px-2 py-1 rounded-full text-[11px] font-semibold transition-colors border ${
                         isSelected
                           ? 'bg-blue-600 text-white border-blue-600'
+                          : hasGuessed
+                          ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed opacity-60'
                           : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
                       }`}
                       aria-pressed={isSelected}
+                      title={hasGuessed ? 'Already guessed' : ''}
                     >
                       {name}
                     </button>
@@ -201,33 +215,24 @@ const Leaderboard = ({
             aria-label="Guess the person"
           />
           <div className="flex items-center gap-1.5">
-            <label className="text-xs text-gray-700 whitespace-nowrap">Question:</label>
-            <select
-              value={currentGuessQuestion}
-              onChange={(e) => onCurrentGuessQuestionChange(Number(e.target.value))}
-              disabled={isGuessingDisabled}
-              className="flex-1 px-2 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs"
-              aria-label="Question number for guess"
-            >
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+            <label className="text-xs text-gray-700 whitespace-nowrap">Current Question:</label>
+            <div className="flex-1 px-2 py-1.5 border border-gray-300 rounded-md bg-gray-50 text-xs font-semibold text-gray-700 text-center">
+              Q{currentQuestionNumber}
+            </div>
           </div>
           <button
             onClick={onAddGuess}
-            disabled={isGuessingDisabled || !currentGuessParticipant.trim() || !currentGuess.trim()}
+            disabled={isGuessingDisabled || !currentGuessParticipant.trim() || !currentGuess.trim() || teamAlreadyGuessed}
             className={`w-full px-2 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-              isGuessingDisabled || !currentGuessParticipant.trim() || !currentGuess.trim()
+              isGuessingDisabled || !currentGuessParticipant.trim() || !currentGuess.trim() || teamAlreadyGuessed
                 ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
                 : 'bg-purple-500 text-white hover:bg-purple-600'
             }`}
             tabIndex={0}
             aria-label="Add guess"
+            title={teamAlreadyGuessed ? 'This team has already guessed' : ''}
           >
-            Add Guess
+            {teamAlreadyGuessed ? 'Already Guessed' : 'Add Guess'}
           </button>
         </div>
         <div className="space-y-1 max-h-32 overflow-auto">
